@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+</head>
+<body>
+    
+        <h1>Etch-a-Sketch</h1>
+        <p>Choose the size of the grid! (Input a number up to 100)</p>
+        <input type="number" id="answer"></input>
+        <button id="clear">Clear grid</button>
+        <div id="container"></div>
+
+
+    <style>
+
+        #container {
+            display: grid;
+            width: 1300px;
+            height: 750px;
+            grid-template-columns: repeat(16, 1fr);
+            grid-template-rows: repeat(16, 1fr);
+        }
+        #answer {
+            margin-bottom: 20px;
+        }
+        .cell {
+            background-color: white;
+            border: 1px solid black;
+            
+        }
+        .colorcell {
+            background-color: red;
+            border: 1px solid black;
+        }
+
+        
+    </style>
+
+    <script>
+    const container=document.querySelector('#container');
+    const answer=document.querySelector('#answer');
+    const clear= document.querySelector('#clear');
+
+       
+    function firstGrid() {
+        for (let i=1; i<257; i++) {
+        const divs=document.createElement('div');
+        divs.classList.add('cell');
+        container.appendChild(divs);
+        }
+    };
+
+    function changeGrid() {
+    container.innerHTML = "";
+    container.style.setProperty('grid-template-columns', `repeat(${answer.value}, 1fr)`);
+    container.style.setProperty('grid-template-rows', `repeat(${answer.value}, 1fr)`);
+    if (answer.value>100) {
+        alert ('please input a number up to 100');
+        document.location.reload();
+    } else 
+    for (let i = 0; i < answer.value * answer.value; i++) {
+        const divs=document.createElement('div');
+        divs.classList.add('cell');
+        container.appendChild(divs);
+    }
+    
+    };
+
+    const cell=document.querySelector('div');
+    cell.addEventListener('mouseover', function(e) {
+        e.target.classList.replace ('cell','colorcell')
+    });
+
+    answer.addEventListener ('change', changeGrid);
+
+    clear.addEventListener("click", function() {
+        document.location.reload();
+    });
+
+    firstGrid();
+
+        
+
+        
+    </script>
+</body>
+</html>
